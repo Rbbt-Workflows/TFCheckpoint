@@ -1,0 +1,52 @@
+TFCheckpoint=/$PWD filter="*.rb *.rake Rakefile *.rdoc *.R *.sh *.js *.haml *.sass *.txt *.conf" {
+ workflow.rb
+ bin=bin filter="*"{
+ }
+ lib=lib {
+  rbbt=rbbt{
+   sources=sources{
+    TFCheckpoint.rb
+   }
+  }
+ }
+ doc=doc{
+ }
+ test=test {
+  test_helper.rb
+ }
+ data=data filter="*"{
+  Ravazi.xls
+  Saere_et_al.xls
+  TcoF-DB_human.xlsx
+  TcoF-DB_mouse.xlsx
+  animal_tfdb_Mus_musculus.txt
+  animal_tfdb_Rattus_norvegicus.txt
+  animal_tfdb_homo_sapiens.txt
+  gene_orthologs.gz
+  go_43565_human.tsv
+  go_43565_mouse.tsv
+  go_43565_rat.tsv
+  go_6357_human.tsv
+  go_6357_mouse.tsv
+  go_6357_rat.tsv
+  go_981_human.tsv
+  go_981_mouse.tsv
+  go_981_rat.tsv
+  human_mouse_orthologs.tsv
+  human_rat_orthologs.tsv
+  jaspar_human.txt
+  jaspar_mouse.txt
+  jaspar_rat.txt
+  lambert_2018.txt
+  mouse_rat_orthologs.tsv
+  tfclass.ttl.gz
+  vaquerizas.txt
+
+  dbd_orfeome_tfcat.tsv
+  TFCheckpoint 2.0 guidelines.docx
+  humantfdb.txt
+  TFcheckpoint_orthologs_manual.xlsx
+  dbTF_gene_product_set.tsv
+  dbTF_gene_product_set.xlsx
+ }
+}

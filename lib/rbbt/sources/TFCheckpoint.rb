@@ -73,8 +73,13 @@ module TFCheckpoint
     tsv.to_single
   end
 
-  %w(go_43565_human go_43565_mouse go_43565_rat go_6357_human go_6357_mouse
-  go_6357_rat go_981_human go_981_mouse go_981_rat).each do |db|
+  %w(
+  go_43565_human go_43565_mouse go_43565_rat go_6357_human go_6357_mouse
+  go_6357_rat go_981_human go_981_mouse go_981_rat go_140223_human
+  go_140223_mouse go_140223_rat go_3700_human go_3700_mouse
+  go_3700_rat go_3712_human go_3712_mouse go_3712_rat
+  go_6355_human go_6355_mouse go_6355_rat
+  ).each do |db|
     namespace = case db.split("_").last
                 when 'human'
                   'Hsa'
@@ -142,12 +147,13 @@ module TFCheckpoint
     tsv = TSV.setup(Rbbt.data["dbTF_gene_product_set.tsv"].read.split("\n").collect{|l| l.split("\t").first}, "Associated Gene Name~#:type=:single")
     tsv.namespace = "Hsa"
     tsv = tsv.reorder :key, [:key]
+    tsv.delete_if{|k,v| k.include?("(Top)") }
     tsv
   end
 
   TFCheckpoint.claim TFCheckpoint.DBD, :proc do 
     tsv = TSV.open Rbbt.data["dbd_orfeome_tfcat.tsv"], :header_hash => '', :fields => [3], :type => :double
-    tsv = tsv.select{|k,v| v != "0"}
+    tsv = tsv.select{|k,v| v.flatten.first != "0"}
     tsv.namespace = "Hsa"
     tsv.key_field = "Entrez Gene ID"
     tsv = tsv.reorder :key, [:key]
@@ -156,7 +162,7 @@ module TFCheckpoint
 
   TFCheckpoint.claim TFCheckpoint.ORFeome, :proc do 
     tsv = TSV.open Rbbt.data["dbd_orfeome_tfcat.tsv"], :header_hash => '', :fields => [4], :type => :list
-    tsv = tsv.select{|k,v| v != "0"}
+    tsv = tsv.select{|k,v| v.flatten.first != "0"}
     tsv.key_field = "Entrez Gene ID"
     tsv.namespace = "Hsa"
     tsv = tsv.reorder :key, [:key]
@@ -165,33 +171,75 @@ module TFCheckpoint
 
   TFCheckpoint.claim TFCheckpoint.TFCat, :proc do 
     tsv = TSV.open Rbbt.data["dbd_orfeome_tfcat.tsv"], :header_hash => '', :fields => [5], :type => :list
-    tsv = tsv.select{|k,v| v != "0"}
+    tsv = tsv.select{|k,v| v.flatten.first != "0"}
     tsv.key_field = "Entrez Gene ID"
     tsv.namespace = "Hsa"
     tsv = tsv.reorder :key, [:key]
     tsv
   end
+
+
+  %w(human mouse rat).each do |organism|
+    namespace = case organism
+                when 'human'
+                  'Hsa'
+                when 'mouse'
+                  'Mmu'
+                when 'rat'
+                  'Rno'
+                end
+    TFCheckpoint.claim TFCheckpoint["tfclass_#{organism}"], :proc do
+      list = Rbbt.data["tfclass_#{organism}.tsv"].list.collect{|e| e.strip}.reject{|e| e.empty?}
+      tsv = TSV.setup(list, :key_field => "UniProt/SwissProt Accession", :fields => [], :type => :list, :namespace => namespace)
+      tsv.attach Organism.identifiers(namespace), :fields => ["Associated Gene Name"]
+      tsv = tsv.select("Associated Gene Name"){|n| ! n.nil? && ! n.empty?}
+      tsv = tsv.reorder "Associated Gene Name", [:key]
+      tsv
+    end
+  end
+
+  %w(human mouse).each do |organism|
+    namespace = case organism
+                when 'human'
+                  'Hsa'
+                when 'mouse'
+                  'Mmu'
+                when 'rat'
+                  'Rno'
+                end
+    TFCheckpoint.claim TFCheckpoint["tcof_cotf_#{organism}"], :proc do
+      tsv = TSV.open(Rbbt.data["tcof_cotf_#{organism}.txt"].find, :fields => ["Type"], :type => :list, :namespace => namespace, :header_hash => '') 
+      tsv.key_field = "Associated Gene Name"
+      tsv
+    end
+  end
+
+
 end
 
 if __FILE__ == $0
-  update = true
 
-  Log.tsv TFCheckpoint.humantfdb.produce(true).tsv
+  #Log.tsv TFCheckpoint.tfclass_mouse.produce(true).tsv
+  #Log.tsv TFCheckpoint.tfclass_human.produce(true).tsv
+  #Log.tsv TFCheckpoint.tfclass_rat.produce(true).tsv
+
+  #Log.tsv TFCheckpoint.humantfdb.produce(true).tsv
   Log.tsv TFCheckpoint.GREEKC.produce(true).tsv
-  Log.tsv TFCheckpoint.DBD.produce(true).tsv
-  Log.tsv TFCheckpoint.ORFeome.produce(true).tsv
-  Log.tsv TFCheckpoint.TFCat.produce(true).tsv
+  #Log.tsv TFCheckpoint.DBD.produce(true).tsv
+  #Log.tsv TFCheckpoint.ORFeome.produce(true).tsv
+  #Log.tsv TFCheckpoint.TFCat.produce(true).tsv
 
-  #if update
+  exit
+  update = true
+  if update
 
-  #  TFCheckpoint.resources.keys.each do |key|
-  #    TFCheckpoint[key.split("/").last].produce(false).tsv
-  #  end 
+    TFCheckpoint.resources.keys.each do |key|
+      TFCheckpoint[key.split("/").last].produce(true).tsv
+    end 
 
-  #else
-
-  #  file = TFCheckpoint.resources.keys.last.split("/").last
-  #  Log.tsv TFCheckpoint[file].produce(true).tsv
-  #end
+  else
+    file = TFCheckpoint.resources.keys.last.split("/").last
+    Log.tsv TFCheckpoint[file].produce(true).tsv
+  end
 end
 

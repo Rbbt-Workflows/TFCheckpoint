@@ -1,0 +1,115 @@
+﻿GENE PRODUCT DB	GENE PRODUCT ID	SYMBOL	QUALIFIER	GO TERM	GO NAME	ECO ID	GO EVIDENCE CODE	REFERENCE	WITH/FROM	TAXON ID	ASSIGNED BY	ANNOTATION EXTENSION	GO ASPECT
+UniProtKB	A0A024R5A7	TAF6L	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	A0A024R6P8	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	A3KN61	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	A4D299	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	A6NIE6	RRN3P2	enables	GO:0001181	RNA polymerase I general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000300504|PomBase:SPAC18G6.11c|SGD:S000001608	9606	GO_Central		F
+UniProtKB	A8K0D4	A8K0D4	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	B3KUR4	B3KUR4	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	B3KWA2	B3KWA2	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	B4DVM4	TAF6L	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	C9J088	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	C9J7C4	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	C9JFL8	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	C9JHQ8	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	C9JIS2	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	C9JTY6	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	E5RHA1	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	E5RKA5	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	E9PP94	TAF6L	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	F6VUY7	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	F8VS45	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	F8VWT8	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	F8VWY1	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	F8VXJ4	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	F8WEJ7	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	H0YIV6	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	J3KR72	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	O00268	TAF4	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0010280|PANTHER:PTN000388601|UniProtKB:O00268	9606	GO_Central		F
+UniProtKB	O00268	TAF4	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9603525		9606	UniProt		F
+UniProtKB	O75971	SNAPC5	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9732265		9606	GO_Central		F
+UniProtKB	O75971	SNAPC5	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000314	IDA	PMID:9732265		9606	GO_Central		F
+UniProtKB	P13984	GTF2F2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000250	ISS	GO_REF:0000024	UniProtKB:Q01750	9606	ARUK-UCL		F
+UniProtKB	P17480	UBTF	enables	GO:0001181	RNA polymerase I general transcription initiation factor activity	ECO:0000314	IDA	PMID:12498690		9606	ARUK-UCL		F
+UniProtKB	P20226	TBP	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	P20226	TBP	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000013137|PomBase:SPAC29E6.08|UniProtKB:P20226|UniProtKB:P62380	9606	GO_Central		F
+UniProtKB	P20226	TBP	enables	GO:0140223	general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0003687|FB:FBgn0010287|FB:FBgn0261793|PANTHER:PTN000013136|PomBase:SPAC29E6.08|RGD:67398|UniProtKB:P20226|UniProtKB:P62380	9606	GO_Central		F
+UniProtKB	P20226	TBP	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000315	IMP	PMID:26638071		9606	UniProt		F
+UniProtKB	P20226	TBP	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000265	IEA	GO_REF:0000107	UniProtKB:Q66HB1|ensembl:ENSRNOP00000002038	9606	Ensembl		F
+UniProtKB	P20226	TBP	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9841876		9606	CAFA		F
+UniProtKB	P21675	TAF1	enables	GO:0001181	RNA polymerase I general transcription initiation factor activity	ECO:0000314	IDA	PMID:12498690		9606	ARUK-UCL		F
+UniProtKB	P21675	TAF1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000316	IGI	PMID:25412659	UniProtKB:Q15545	9606	ParkinsonsUK-UCL	has_input(ENSEMBL:ENSG00000110092)	F
+UniProtKB	P21675	TAF1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000356981|UniProtKB:P21675	9606	GO_Central		F
+UniProtKB	P21675	TAF1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:17996705		9606	BHF-UCL		F
+UniProtKB	P29083	GTF2E1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	P29084	GTF2E2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	P35269	GTF2F1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	P35269	GTF2F1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:7929273		9606	ARUK-UCL		F
+UniProtKB	P35269	GTF2F1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000313913|UniProtKB:P35269	9606	GO_Central		F
+UniProtKB	P49848	TAF6	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0010417|PANTHER:PTN000027265|UniProtKB:P49848	9606	GO_Central		F
+UniProtKB	P49848	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	P49848	TAF6	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:15328371		9606	GO_Central		F
+UniProtKB	P49848	TAF6	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9603525		9606	UniProt		F
+UniProtKB	P51946	CCNH	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:7533895		9606	ARUK-UCL		F
+UniProtKB	P52655	GTF2A1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	P52655	GTF2A1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000304	TAS	PMID:8224850		9606	GO_Central		F
+UniProtKB	P52657	GTF2A2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	P52657	GTF2A2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000103450|UniProtKB:P52657	9606	GO_Central		F
+UniProtKB	P52657	GTF2A2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:7958899		9606	BHF-UCL		F
+UniProtKB	P62380	TBPL1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:15767669		9606	NTNU_SB	has_input(NCBI_Gene:4763)	F
+UniProtKB	P62380	TBPL1	enables	GO:0140223	general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0003687|FB:FBgn0010287|FB:FBgn0261793|PANTHER:PTN000013136|PomBase:SPAC29E6.08|RGD:67398|UniProtKB:P20226|UniProtKB:P62380	9606	GO_Central		F
+UniProtKB	P62380	TBPL1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:10220372		9606	GO_Central		F
+UniProtKB	Q00403	GTF2B	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	Q00403	GTF2B	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000178621|PomBase:SPAC16E8.16|UniProtKB:Q00403	9606	GO_Central		F
+UniProtKB	Q01658	DR1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:8670811		9606	ARUK-UCL		F
+UniProtKB	Q12962	TAF10	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:11564863		9606	UniProt		F
+UniProtKB	Q12962	TAF10	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9603525		9606	UniProt		F
+UniProtKB	Q13487	SNAPC2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000303	NAS	PMID:7715707		9606	ARUK-UCL		F
+UniProtKB	Q13888	GTF2H2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	Q13888	GTF2H2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:10924514		9606	GO_Central		F
+UniProtKB	Q13889	GTF2H3	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	Q14919	DRAP1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:8670811		9606	ARUK-UCL		F
+UniProtKB	Q14919	DRAP1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000028884|UniProtKB:Q14919	9606	GO_Central		F
+UniProtKB	Q15542	TAF5	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0010356|PANTHER:PTN007678118|UniProtKB:Q15542	9606	GO_Central		F
+UniProtKB	Q15542	TAF5	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9603525		9606	UniProt		F
+UniProtKB	Q15542	TAF5	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000315	IMP	PMID:9045704		9606	UniProt		F
+UniProtKB	Q15543	TAF13	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q15544	TAF11	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q15545	TAF7	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:25412659		9606	ParkinsonsUK-UCL		F
+UniProtKB	Q15545	TAF7	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000260034|UniProtKB:Q15545	9606	GO_Central		F
+UniProtKB	Q15545	TAF7	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:7824954		9606	GO_Central		F
+UniProtKB	Q15545	TAF7	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9603525		9606	UniProt		F
+UniProtKB	Q15572	TAF1C	enables	GO:0001181	RNA polymerase I general transcription initiation factor activity	ECO:0000314	IDA	PMID:12498690		9606	ARUK-UCL		F
+UniProtKB	Q16514	TAF12	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9603525		9606	UniProt		F
+UniProtKB	Q16533	SNAPC1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000304	TAS	PMID:9418884		9606	ARUK-UCL		F
+UniProtKB	Q16533	SNAPC1	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000304	TAS	PMID:9418884		9606	ARUK-UCL		F
+UniProtKB	Q16594	TAF9	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q16594	TAF9	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0000617|PANTHER:PTN000249331	9606	GO_Central		F
+UniProtKB	Q2M238	RRN3P1	enables	GO:0001181	RNA polymerase I general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000300504|PomBase:SPAC18G6.11c|SGD:S000001608	9606	GO_Central		F
+UniProtKB	Q3SYD7	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	Q5H9L4	TAF7L	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000260034|UniProtKB:Q15545	9606	GO_Central		F
+UniProtKB	Q5SXM2	SNAPC4	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000314	IDA	PMID:9418884		9606	ARUK-UCL		F
+UniProtKB	Q5SXM2	SNAPC4	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:9418884		9606	ARUK-UCL		F
+UniProtKB	Q5VWG9	TAF3	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q6P1X5	TAF2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q6P1X5	TAF2	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0011836|PANTHER:PTN000388531	9606	GO_Central		F
+UniProtKB	Q6SJ96	TBPL2	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000013137|PomBase:SPAC29E6.08|UniProtKB:P20226|UniProtKB:P62380	9606	GO_Central		F
+UniProtKB	Q6SJ96	TBPL2	enables	GO:0140223	general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0003687|FB:FBgn0010287|FB:FBgn0261793|PANTHER:PTN000013136|PomBase:SPAC29E6.08|RGD:67398|UniProtKB:P20226|UniProtKB:P62380	9606	GO_Central		F
+UniProtKB	Q6ZV39	Q6ZV39	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	Q7Z7C8	TAF8	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q8IZX4	TAF1L	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000356981|UniProtKB:P21675	9606	GO_Central		F
+UniProtKB	Q92750	TAF4B	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q92750	TAF4B	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0010280|PANTHER:PTN000388601|UniProtKB:O00268	9606	GO_Central		F
+UniProtKB	Q92759	GTF2H4	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27193682		9606	ARUK-UCL		F
+UniProtKB	Q92966	SNAPC3	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000303	NAS	PMID:7715707		9606	ARUK-UCL		F
+UniProtKB	Q92994	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000178519|PomBase:SPBC13E7.10c	9606	GO_Central		F
+UniProtKB	Q92994	BRF1	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+UniProtKB	Q9HBM6	TAF9B	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000305	IC	PMID:29111974	GO:0005669	9606	ARUK-UCL		F
+UniProtKB	Q9HBM6	TAF9B	contributes_to	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	FB:FBgn0000617|PANTHER:PTN000249331	9606	GO_Central		F
+UniProtKB	Q9NYV6	RRN3	enables	GO:0001181	RNA polymerase I general transcription initiation factor activity	ECO:0000318	IBA	PMID:21873635	PANTHER:PTN000300504|PomBase:SPAC18G6.11c|SGD:S000001608	9606	GO_Central		F
+UniProtKB	Q9Y6J9	TAF6L	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR037796	9606	InterPro		F
+UniProtKB	V9HVY2	HEL-S-76p	enables	GO:0000995	RNA polymerase III general transcription initiation factor activity	ECO:0000256	IEA	GO_REF:0000002	InterPro:IPR029529	9606	InterPro		F
+ComplexPortal	CPX-3227	mediator_human	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0005547		PMID:11559591		9606	ComplexPortal		F
+ComplexPortal	CPX-79	rap30-rap74_human	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:15351637		9606	ComplexPortal		F
+ComplexPortal	CPX-915	tfiid_human	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0000314	IDA	PMID:27007846		9606	ComplexPortal		F
+ComplexPortal	CPX-930	tfiid-taf4bvariant_human	enables	GO:0016251	RNA polymerase II general transcription initiation factor activity	ECO:0005546		GO_REF:0000114	ComplexPortal:CPX-915	9606	ComplexPortal		F

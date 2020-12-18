@@ -22,7 +22,10 @@ module TFCheckpoint
       db = File.basename(file)
       tsv.fields = [db + ": ID used (#{fields.first})"] + fields[1..-1].collect{|f| [db, f] * ": "}
       next unless tsv.namespace.include? organism
-      join = join.attach tsv, :complete => true, :fields => tsv.fields, :one2one => false, :identifiers => Organism.identifiers(organism)
+
+      tsv = tsv.change_key "Associated Gene Name", :identifiers => Organism.identifiers(organism) unless tsv.key_field == "Associated Gene Name"
+
+      join = join.attach tsv, :complete => true, :fields => tsv.fields, :one2one => false
     end
 
     name2entrez = Organism.identifiers(organism).index :target => "Entrez Gene ID", :persist => true
@@ -367,7 +370,7 @@ module TFCheckpoint
     rno2hsa = Rbbt.data["human_rat_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'rat')
     rno2mmu = Rbbt.data["mouse_rat_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'rat')
     
-    manual_orthologs = TSV.xlsx(Rbbt.data["TFcheckpoint_orthologs_manual.xlsx"])
+    manual_orthologs = TSV.xlsx(Rbbt.data["TFcheckpoint_orthologs_manual.xlsx"].find)
 
     manual_orthologs.process "mouse NCBI_D" do |v|
       v.first.to_i.to_s
@@ -490,7 +493,7 @@ Ensembl Gene ID
 
     tsv = tsv.reorder :key, new_fields + features + go_fields + ids 
 
-    ids.each do |field|
+    ids.sort.each do |field|
       db = field.split(": ").first
       next if db =~ /^go_/
       tsv.add_field "#{db} present" do |k,values|
@@ -500,7 +503,29 @@ Ensembl Gene ID
       end
     end
 
-    tsv.reorder :key, tsv.fields - ids
+    tsv = tsv.reorder :key, tsv.fields - ids
+
+    # Remove GO duplicates
+
+
+    tsv.through do |k,values|
+      %w(140223 3700 3712 43565 6355 6357 981).each do |goid|
+        fterm = "GO #{goid} terms"
+        fevidence = "GO #{goid} evidence"
+
+        terms = values[fterm]
+        evidence = values[fevidence]
+
+        uniq = Misc.zip_fields([terms, evidence]).uniq
+        terms = uniq.collect{|p| p[0] }
+        evidence = uniq.collect{|p| p[1] }
+
+        values[fterm] = terms
+        values[fevidence] = evidence
+      end
+    end
+
+    tsv
   end
 
   dep :tidy
@@ -519,6 +544,24 @@ Ensembl Gene ID
     end
     Open.write(file('removed'), removed * "\n")
     tsv
+  end
+
+  dep :filter_go
+  task :process_go_fields => :tsv do
+    tsv = step(:filter_go).load
+
+    tsv.add_field "Has GO:0006355" do |k,values|
+      values["GO 6355 terms"].any? ?  "Yes" : "No"
+    end
+
+    tsv.add_field "Has GO:0140223" do |k,values|
+      values["GO 140223 terms"].any? ?  "Yes" : "No"
+    end
+
+    removed_go = ["GO 6355 terms", "GO 6355 evidence", "GO 140223 terms", "GO 140223 evidence"]
+    good_fields = tsv.fields - removed_go
+
+    tsv.slice good_fields
   end
 
   task :orthologs => :tsv do

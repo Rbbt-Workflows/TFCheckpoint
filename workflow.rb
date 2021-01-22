@@ -523,6 +523,13 @@ Ensembl Gene ID
         values[fterm] = terms
         values[fevidence] = evidence
       end
+
+      id_fields = ["Entrez Taxa ID", "Entrez Gene ID", "UniProt/SwissProt Accession", "Ensembl Gene ID"]
+      id_values = values.values_at *id_fields
+      uniq_id_values = Misc.zip_fields(Misc.zip_fields(id_values).uniq)
+      id_fields.zip(uniq_id_values).each do |field, value|
+        values[field] = value
+      end
     end
 
     tsv
@@ -562,6 +569,13 @@ Ensembl Gene ID
     good_fields = tsv.fields - removed_go
 
     tsv.slice good_fields
+  end
+
+  dep :process_go_fields
+  task :cleanup => :tsv do
+    tsv = dependencies.first.load
+
+    tsv.select{|k,v| e = v["Entrez Gene ID"]; p = v["UniProt/SwissProt Accession"]; ! (e.nil? || e.empty?) &&  ! (p.nil? || p.empty?)}
   end
 
   task :orthologs => :tsv do

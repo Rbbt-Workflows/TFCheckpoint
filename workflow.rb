@@ -366,6 +366,137 @@ module TFCheckpoint
     taxas = tsv.column("Entrez Taxa ID").values.flatten.uniq.compact.sort
     orthologs = {}
 
+    mmu2hsa = {}
+    rno2hsa = {}
+    rno2mmu = {}
+
+    TSV.traverse Rbbt.data["orthodb_hsa_mmu_rno_orthologs_mammals_level.tsv"], :type => :array do |line|
+      hsa = []
+      rno = []
+      mmu = []
+      line.split("\t").each do |entry|
+        taxa, id = entry.partition("_")
+        case taxa
+        when "9606"
+          hsa << id
+        when "10116"
+          rno << id
+        when "10090"
+          mmu << id
+        else
+          raise "Unkown taxa: #{taxa}"
+        end
+      end
+      mmu.each do |source|
+        hsa.each do |target|
+          mmu2hsa[source] ||= []
+          mmu2hsa[source] << target
+        end
+      end
+      rno.each do |source|
+        hsa.each do |target|
+          rno2hsa[source] ||= []
+          rno2hsa[source] << target
+        end
+        mmu.each do |target|
+          rno2mmu[source] ||= []
+          rno2mmu[source] << target
+        end
+      end
+    end
+
+    #mmu2hsa = Rbbt.data["human_mouse_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'mouse')
+    #rno2hsa = Rbbt.data["human_rat_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'rat')
+    #rno2mmu = Rbbt.data["mouse_rat_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'rat')
+    
+    manual_orthologs = TSV.xlsx(Rbbt.data["TFcheckpoint_orthologs_manual.xlsx"].find)
+
+    manual_orthologs.process "mouse NCBI_D" do |v|
+      v.first.to_i.to_s
+    end
+
+    manual_orthologs.process "rat NCBI_ID" do |v|
+      v.first.to_i.to_s
+    end
+
+    manual_orthologs_mmu = manual_orthologs.index :target => 'Ortholog', :fields => ["mouse NCBI_D"]
+    manual_orthologs_rno = manual_orthologs.index :target => 'Ortholog', :fields => ["rat NCBI_ID"]
+
+
+    i = 0
+    new = tsv.annotate({})
+    field_pos = ["Organism", "Entrez Taxa ID", "Entrez Gene ID"].collect{|f| tsv.fields.index(f) }
+    TSV.traverse tsv, :into => new do |name, values|
+      res = []
+      res.extend MultipleResult
+
+      used_names = []
+      organismsl = values["Organism"]
+      entrezl = values["Entrez Gene ID"]
+      Misc.zip_fields([organismsl, entrezl]).each do |organism,entrez|
+        next if organism.nil?
+
+        case organism
+        when 'Mmu'
+          oe = (mmu2hsa[entrez] || []) - entrezl
+
+          onames = entrez_index.values_at(*oe)
+          new_oname = manual_orthologs_mmu[entrez]
+          onames << new_oname if new_oname
+          if onames.any?
+            onames.each do |oname|
+              next if used_names.include? oname
+              used_names << oname
+              res << [oname, values]
+            end
+          else
+            res << [name, values]
+          end
+        when 'Rno'
+          oe = (rno2hsa[entrez] || []) - entrezl
+
+          onames = entrez_index.values_at(*oe)
+          new_oname = manual_orthologs_rno[entrez]
+          onames << new_oname if new_oname
+
+          if onames.any?
+            onames.each do |oname|
+              next if used_names.include? oname
+              used_names << oname
+              res << [oname, values]
+            end
+          else
+            oe = (rno2mmu[entrez] || []) - entrezl
+
+            onames = entrez_index.values_at(*oe)
+            if onames.any?
+              onames.each do |oname|
+                next if used_names.include? oname
+                used_names << oname
+                res << [oname, values]
+              end
+            else
+              res << [name, values]
+            end
+          end
+        else
+          res << [name, values]
+        end
+      end
+      res.uniq!
+      res
+    end
+    
+  end
+
+  dep :all_orgs
+  task :ortho7 => :tsv do
+    tsv = step(:all_orgs).load.to_double
+    entrez_index = tsv.index :fields => ["Entrez Gene ID"]
+
+    taxas = tsv.column("Entrez Taxa ID").values.flatten.uniq.compact.sort
+    orthologs = {}
+
     mmu2hsa = Rbbt.data["human_mouse_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'mouse')
     rno2hsa = Rbbt.data["human_rat_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'rat')
     rno2mmu = Rbbt.data["mouse_rat_orthologs.tsv"].tsv(:header_hash => "", :merge => true, :type => :flat, :key_field => 'rat')
@@ -399,7 +530,7 @@ module TFCheckpoint
 
         case organism
         when 'Mmu'
-          oe = (mmu2hsa[entrez] || []) - entrezl
+          oe = (mmu2hsa[entrez] || []).uniq - entrezl
           onames = entrez_index.values_at(*oe)
           new_oname = manual_orthologs_mmu[entrez]
           onames << new_oname if new_oname
@@ -413,7 +544,7 @@ module TFCheckpoint
             res << [name, values]
           end
         when 'Rno'
-          oe = (rno2hsa[entrez] || []) - entrezl
+          oe = (rno2hsa[entrez] || []).uniq - entrezl
 
           onames = entrez_index.values_at(*oe)
           new_oname = manual_orthologs_rno[entrez]
@@ -426,7 +557,7 @@ module TFCheckpoint
               res << [oname, values]
             end
           else
-            oe = (rno2mmu[entrez] || []) - entrezl
+            oe = (rno2mmu[entrez] || []).uniq - entrezl
             onames = entrez_index.values_at(*oe)
             if onames.any?
               onames.each do |oname|
@@ -448,7 +579,7 @@ module TFCheckpoint
     
   end
 
-  dep :ortho6
+  dep :ortho7
   task :tidy => :tsv do
     tsv = dependencies.first.load
     fields = tsv.fields

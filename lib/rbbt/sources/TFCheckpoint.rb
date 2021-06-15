@@ -136,13 +136,13 @@ module TFCheckpoint
 
   # UPDATE from Oct2020
   
-  TFCheckpoint.claim TFCheckpoint.humantfdb, :proc do 
-    tsv = TSV.open Rbbt.data["humantfdb.txt"], :header_hash => '', :key_field => 1, :fields => [3], :type => :single
-    tsv = tsv.reorder :key, [:key]
-    tsv.namespace = "Hsa"
-    tsv.key_field = "Associated Gene Name"
-    tsv
-  end
+  #TFCheckpoint.claim TFCheckpoint.humantfdb, :proc do 
+  #  tsv = TSV.open Rbbt.data["humantfdb.txt"], :header_hash => '', :key_field => 1, :fields => [3], :type => :single
+  #  tsv = tsv.reorder :key, [:key]
+  #  tsv.namespace = "Hsa"
+  #  tsv.key_field = "Associated Gene Name"
+  #  tsv
+  #end
 
   TFCheckpoint.claim TFCheckpoint.GREEKC, :proc do 
     tsv = TSV.setup(Rbbt.data["dbTF_gene_product_set.tsv"].read.split("\n").collect{|l| l.split("\t").first}, "Associated Gene Name~#:type=:single")
@@ -215,6 +215,24 @@ module TFCheckpoint
     end
   end
 
+  %w(Rattus_norvegicus Mus_musculus Homo_sapiens).each do |organism|
+    namespace = case organism
+                when 'Rattus_norvegicus'
+                  'Rno'
+                when 'Mus_musculus'
+                  'Mmu'
+                when 'Homo_sapiens'
+                  'Hsa'
+                end
+
+    TFCheckpoint.claim TFCheckpoint["animal_tfdb_#{organism}_cofactors"], :proc do
+      tsv = TSV.open(Rbbt.data["animaltfdb_#{organism}_cofactors.txt"].find, :key_field => "Symbol", :fields => ["Entrez ID", "Ensembl", "Family"], :type => :list, :namespace => namespace, :header_hash => '') 
+      tsv.key_field = "Associated Gene Name"
+      tsv.fields = ["Entrez Gene ID", "Ensembl Gene ID", "Family"]
+      tsv
+    end
+  end
+
 
 end
 
@@ -235,7 +253,7 @@ if __FILE__ == $0
     if update
 
       TFCheckpoint.resources.keys.each do |key|
-        TFCheckpoint[key.split("/").last].produce(true).tsv
+        TFCheckpoint[key.split("/").last].produce(false).tsv
       end 
 
     else

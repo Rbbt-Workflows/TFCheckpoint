@@ -37,7 +37,7 @@ module TFCheckpoint
     adhoc = Rbbt.data.adhoc_entrez.tsv
     join = join.add_field "Entrez Gene ID" do |k,values|
       name2entrez[k] || name2entrez2[k] || adhoc[k]
-    end
+    end unless join.fields.include?("Entrez Gene ID")
 
     name2uni = Organism.identifiers(organism).index :target => "UniProt/SwissProt Accession", :persist => true
     name2uni2 = UniProt.identifiers[organism_short].index :target => "UniProt/SwissProt Accession", :persist => true
@@ -53,7 +53,7 @@ module TFCheckpoint
       elsif u = name2uni2[k]
         uni2ensembl2[u]
       end
-    end
+    end unless join.fields.include?("Ensembl Gene ID")
 
     join.namespace = organism_short
     

@@ -15,6 +15,7 @@ TFCheckpoint=/$PWD filter="*.rb *.rake Rakefile *.rdoc *.R *.sh *.js *.haml *.sa
   test_helper.rb
  }
  data=data filter="*"{
+  adhoc_entrez
   Ravazi.xls
   Saere_et_al.xls
   TcoF-DB_human.xlsx

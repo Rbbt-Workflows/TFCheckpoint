@@ -1,6 +1,7 @@
 require 'rbbt-util'
 require 'rbbt/workflow'
 require 'rbbt/sources/organism'
+require 'rbbt/sources/uniprot'
 
 Misc.add_libdir if __FILE__ == $0
 
@@ -14,6 +15,9 @@ module TFCheckpoint
   input :remove_unknown, :boolean, "Remove genes that cannot be identified", false
   task :join => :tsv do |organism, remove_unknown|
     join = TSV.setup({}, :key_field => "Associated Gene Name", :fields => [], :type => :double)
+
+    organism_short = organism.split("/").first
+
     TFCheckpoint.root.glob("*").each do |file|
       tsv = TSV.open file
 
@@ -21,7 +25,7 @@ module TFCheckpoint
 
       db = File.basename(file)
       tsv.fields = [db + ": ID used (#{fields.first})"] + fields[1..-1].collect{|f| [db, f] * ": "}
-      next unless tsv.namespace.include? organism
+      next unless tsv.namespace.include? organism_short
 
       tsv = tsv.change_key "Associated Gene Name", :identifiers => Organism.identifiers(organism) unless tsv.key_field == "Associated Gene Name"
 
@@ -29,27 +33,36 @@ module TFCheckpoint
     end
 
     name2entrez = Organism.identifiers(organism).index :target => "Entrez Gene ID", :persist => true
+    name2entrez2 = UniProt.identifiers[organism_short].index :target => "Entrez Gene ID", :persist => true
+    adhoc = Rbbt.data.adhoc_entrez.tsv
     join = join.add_field "Entrez Gene ID" do |k,values|
-      name2entrez[k]
+      name2entrez[k] || name2entrez2[k] || adhoc[k]
     end
 
     name2uni = Organism.identifiers(organism).index :target => "UniProt/SwissProt Accession", :persist => true
+    name2uni2 = UniProt.identifiers[organism_short].index :target => "UniProt/SwissProt Accession", :persist => true
     join = join.add_field "UniProt/SwissProt Accession" do |k,values|
-      name2uni[k]
+      name2uni[k] || name2uni2[k]
     end
 
     name2ensembl = Organism.identifiers(organism).index :target => "Ensembl Gene ID", :persist => true
+    uni2ensembl2 = UniProt.identifiers[organism_short].index :fields => ["UniProt/SwissProt Accession"], :target => "Ensembl Gene ID", :persist => true
     join = join.add_field "Ensembl Gene ID" do |k,values|
-      name2ensembl[k]
+      if e = name2ensembl[k]
+        e
+      elsif u = name2uni2[k]
+        uni2ensembl2[u]
+      end
     end
-    join.namespace = organism
+
+    join.namespace = organism_short
     
     join = join.select("Ensembl Gene ID"){|i| i.first } if remove_unknown
 
     join
   end
 
-  dep :join, :organism => "Hsa", :jobname => "Hsa"
+  dep :join, :organism => "Hsa/feb2021", :jobname => "Hsa"
   dep :join, :organism => "Mmu", :jobname => "Mmu"
   dep :join, :organism => "Rno", :jobname => "Rno"
   task :all_orgs => :tsv do
@@ -674,6 +687,8 @@ Ensembl Gene ID
     tsv = tsv.select do |k,values|
       present = values.values_at(*present_fields).flatten.compact
       good = present.any? ||
+        values["GO 3712 terms"].any? || 
+        values["GO 3700 terms"].any? || 
         values["GO 981 terms"].any? || 
         (values["GO 43565 terms"].any? && (values["GO 6357 terms"].any?))
 
@@ -706,6 +721,7 @@ Ensembl Gene ID
   task :cleanup => :tsv do
     tsv = dependencies.first.load
 
+    #tsv.select{|k,v| p = v["UniProt/SwissProt Accession"]; ! (p.nil? || p.empty?) }
     tsv.select{|k,v| e = v["Entrez Gene ID"]; p = v["UniProt/SwissProt Accession"]; ! (e.nil? || e.empty?) &&  ! (p.nil? || p.empty?)}
   end
 

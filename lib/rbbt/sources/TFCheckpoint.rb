@@ -2,6 +2,7 @@ require 'rbbt-util'
 require 'rbbt/resource'
 require 'rbbt/tsv/excel'
 require 'rbbt/sources/organism'
+require 'rbbt/sources/uniprot'
 
 module TFCheckpoint
   extend Resource
@@ -93,7 +94,7 @@ module TFCheckpoint
       tsv = tsv.reorder :key, [:key] + tsv.fields, :one2one => true, :merge => true
       tsv.namespace = namespace
       tsv.key_field = "UniProt/SwissProt Accession"
-      tsv = tsv.change_key "Associated Gene Name"
+      tsv = tsv.change_key "Associated Gene Name", :identifiers => UniProt.identifiers[namespace]
       tsv
     end
   end
@@ -126,7 +127,7 @@ module TFCheckpoint
     TFCheckpoint.claim TFCheckpoint["jaspar_" + org], :proc do 
       list = Rbbt.data["jaspar_#{org}.txt"].list.collect{|e| e.split(";")}.flatten.collect{|e| e.strip}.reject{|e| e.empty?}
       tsv = TSV.setup(list, :key_field => "UniProt/SwissProt Accession", :fields => [], :type => :list, :namespace => namespace)
-      tsv.attach Organism.identifiers(namespace), :fields => ["Associated Gene Name"]
+      tsv.attach UniProt.identifiers[namespace], :fields => ["Associated Gene Name"]
       tsv = tsv.select("Associated Gene Name"){|n| ! n.nil? && ! n.empty?}
       tsv = tsv.reorder "Associated Gene Name", [:key]
       tsv
@@ -191,7 +192,7 @@ module TFCheckpoint
     TFCheckpoint.claim TFCheckpoint["tfclass_#{organism}"], :proc do
       list = Rbbt.data["tfclass_#{organism}.tsv"].list.collect{|e| e.strip}.reject{|e| e.empty?}
       tsv = TSV.setup(list, :key_field => "UniProt/SwissProt Accession", :fields => [], :type => :list, :namespace => namespace)
-      tsv.attach Organism.identifiers(namespace), :fields => ["Associated Gene Name"]
+      tsv.attach UniProt.identifiers[namespace], :fields => ["Associated Gene Name"]
       tsv = tsv.select("Associated Gene Name"){|n| ! n.nil? && ! n.empty?}
       tsv = tsv.reorder "Associated Gene Name", [:key]
       tsv
@@ -229,17 +230,18 @@ if __FILE__ == $0
   #Log.tsv TFCheckpoint.ORFeome.produce(true).tsv
   #Log.tsv TFCheckpoint.TFCat.produce(true).tsv
 
-  exit
-  update = true
-  if update
+  Log.with_severity 0 do
+    update = true
+    if update
 
-    TFCheckpoint.resources.keys.each do |key|
-      TFCheckpoint[key.split("/").last].produce(true).tsv
-    end 
+      TFCheckpoint.resources.keys.each do |key|
+        TFCheckpoint[key.split("/").last].produce(true).tsv
+      end 
 
-  else
-    file = TFCheckpoint.resources.keys.last.split("/").last
-    Log.tsv TFCheckpoint[file].produce(true).tsv
+    else
+      file = TFCheckpoint.resources.keys.last.split("/").last
+      Log.tsv TFCheckpoint[file].produce(true).tsv
+    end
   end
 end
 

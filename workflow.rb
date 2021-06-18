@@ -19,7 +19,7 @@ module TFCheckpoint
     organism_short = organism.split("/").first
 
     TFCheckpoint.root.glob("*").each do |file|
-      tsv = TSV.open file
+      tsv = TSV.open file, :type => :double
 
       fields = tsv.fields
 
@@ -59,7 +59,21 @@ module TFCheckpoint
     
     join = join.select("Ensembl Gene ID"){|i| i.first } if remove_unknown
 
-    join
+    new = join.annotate({})
+
+    uni2name = UniProt.identifiers[organism_short].index :target => "Associated Gene Name", :persist => true, :order => true
+    join.each do |name,list|
+      uni = list[-2].first
+      new_name = uni2name[uni]
+      next if new_name.nil?
+      if new[new_name].nil?
+        new[new_name] = list
+      else
+        new[new_name] = new[new_name].zip(list).collect{|l| l.compact.reject{|v| v.empty?}.first }
+      end
+    end
+
+    new
   end
 
   dep :join, :organism => "Hsa/feb2021", :jobname => "Hsa"

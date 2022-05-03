@@ -69,7 +69,7 @@ module TFCheckpoint
       if new[new_name].nil?
         new[new_name] = list
       else
-        new[new_name] = new[new_name].zip(list).collect{|l| l.compact.reject{|v| v.empty?}.first }
+        new[new_name] = new[new_name].zip(list).collect{|l| l.compact.reject{|v| v.empty? }.first }
       end
     end
 

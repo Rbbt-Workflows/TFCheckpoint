@@ -10,7 +10,6 @@ require 'rbbt/sources/TFCheckpoint'
 module TFCheckpoint
   extend Workflow
 
-
   input :organism, :string, "Organism code", "Hsa"
   input :remove_unknown, :boolean, "Remove genes that cannot be identified", false
   task :join => :tsv do |organism, remove_unknown|
@@ -19,6 +18,7 @@ module TFCheckpoint
     organism_short = organism.split("/").first
 
     TFCheckpoint.root.glob("*").each do |file|
+      log :join_source, file
       tsv = TSV.open file, :type => :double
 
       fields = tsv.fields
@@ -27,7 +27,7 @@ module TFCheckpoint
       tsv.fields = [db + ": ID used (#{fields.first})"] + fields[1..-1].collect{|f| [db, f] * ": "}
       next unless tsv.namespace.include? organism_short
 
-      tsv = tsv.change_key "Associated Gene Name", :identifiers => Organism.identifiers(organism) unless tsv.key_field == "Associated Gene Name"
+      tsv = tsv.change_key "Associated Gene Name", :identifiers => Organism.identifiers(organism), :persist_identifiers => true unless tsv.key_field == "Associated Gene Name"
 
       join = join.attach tsv, :complete => true, :fields => tsv.fields, :one2one => false
     end
@@ -55,6 +55,7 @@ module TFCheckpoint
       end
     end unless join.fields.include?("Ensembl Gene ID")
 
+
     join.namespace = organism_short
     
     join = join.select("Ensembl Gene ID"){|i| i.first } if remove_unknown
@@ -69,7 +70,13 @@ module TFCheckpoint
       if new[new_name].nil?
         new[new_name] = list
       else
-        new[new_name] = new[new_name].zip(list).collect{|l| l.compact.reject{|v| v.empty? }.first }
+        current = new[new_name]
+        new_list = current.zip(list).collect do |v1,v2| 
+          (v1 + v1).compact
+          res = [v1, v2].compact.reject{|v| v.empty? }.first 
+          res || []
+        end
+        new[new_name] = new_list
       end
     end
 
@@ -91,8 +98,9 @@ module TFCheckpoint
       end
     end
     
-    hsa = hsa.attach rno, :complete  => true, :merge => true, :fields => rno.fields
-    hsa = hsa.attach mmu, :complete  => true, :merge => true, :fields => mmu.fields
+    hsa = hsa.attach rno, :complete  => true, :fields => rno.fields
+    hsa = hsa.attach mmu, :complete  => true, :fields => mmu.fields
+
     hsa
   end
 
@@ -136,7 +144,6 @@ module TFCheckpoint
       end
       res
     end
-    
   end
 
   dep :all_orgs
@@ -531,11 +538,11 @@ module TFCheckpoint
     manual_orthologs = TSV.xlsx(Rbbt.data["TFcheckpoint_orthologs_manual.xlsx"].find)
 
     manual_orthologs.process "mouse NCBI_D" do |v|
-      v.first.to_i.to_s
+      [v.first.to_i.to_s]
     end
 
     manual_orthologs.process "rat NCBI_ID" do |v|
-      v.first.to_i.to_s
+      [v.first.to_i.to_s]
     end
 
     manual_orthologs_mmu = manual_orthologs.index :target => 'Ortholog', :fields => ["mouse NCBI_D"]
@@ -561,6 +568,7 @@ module TFCheckpoint
           onames = entrez_index.values_at(*oe)
           new_oname = manual_orthologs_mmu[entrez]
           onames << new_oname if new_oname
+          onames.compact!
           if onames.any?
             onames.each do |oname|
               next if used_names.include? oname
@@ -577,6 +585,7 @@ module TFCheckpoint
           new_oname = manual_orthologs_rno[entrez]
           onames << new_oname if new_oname
 
+          onames.compact!
           if onames.any?
             onames.each do |oname|
               next if used_names.include? oname
@@ -641,7 +650,6 @@ Ensembl Gene ID
 
     fields = tsv.fields
 
-
     ids = fields.select{|f| f.include? "ID used"}
     go_fields = fields.select{|f| f=~/^GO /}
     old_go_fields = fields.select{|f| f=~/^go_/}
@@ -651,12 +659,19 @@ Ensembl Gene ID
 
     tsv = tsv.reorder :key, new_fields + features + go_fields + ids 
 
+    tsv.each do |k,v|
+      raise if v.flatten.include? nil
+    end
+
+
     ids.sort.each do |field|
       db = field.split(": ").first
       next if db =~ /^go_/
       tsv.add_field "#{db} present" do |k,values|
         if values[field].any?
           [db]
+        else
+          []
         end
       end
     end

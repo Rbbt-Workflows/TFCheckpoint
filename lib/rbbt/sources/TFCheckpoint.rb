@@ -243,7 +243,7 @@ if __FILE__ == $0
   #Log.tsv TFCheckpoint.tfclass_rat.produce(true).tsv
 
   #Log.tsv TFCheckpoint.humantfdb.produce(true).tsv
-  Log.tsv TFCheckpoint.GREEKC.produce(true).tsv
+  #Log.tsv TFCheckpoint.GREEKC.produce(true).tsv
   #Log.tsv TFCheckpoint.DBD.produce(true).tsv
   #Log.tsv TFCheckpoint.ORFeome.produce(true).tsv
   #Log.tsv TFCheckpoint.TFCat.produce(true).tsv
